@@ -7,11 +7,17 @@ import json
 from pathlib import Path
 
 from .engine import MindForge
+from .physics import run_pendulum_experiment
+from .ramanujan import ramanujan_pi_demo
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="MindForge Agentic OS")
-    parser.add_argument("command", choices=["ask", "remember", "plan", "reflect", "status"], help="Action to perform")
+    parser.add_argument(
+        "command",
+        choices=["ask", "remember", "plan", "reflect", "status", "physics", "ramanujan"],
+        help="Action to perform",
+    )
     parser.add_argument("text", nargs="?", help="Text for the command")
     parser.add_argument("--memory-file", default="~/.mindforge/memory.json", help="Path to the JSON memory file")
     return parser
@@ -44,6 +50,14 @@ def main() -> None:
         if not args.text:
             raise SystemExit("Reflect requires a prompt.")
         print(engine.reflect(args.text))
+        return
+
+    if args.command == "physics":
+        print(json.dumps(run_pendulum_experiment(), indent=2))
+        return
+
+    if args.command == "ramanujan":
+        print(json.dumps(ramanujan_pi_demo(), indent=2))
         return
 
     print(json.dumps(engine.dashboard(), indent=2))

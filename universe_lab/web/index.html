@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d18">
+  <title>Universe Lab — Explore the rules</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090d18;
+      --panel: #111827;
+      --panel-soft: #151e30;
+      --line: #27344a;
+      --text: #edf3ff;
+      --muted: #9cabc2;
+      --cyan: #62e2d0;
+      --violet: #a999ff;
+      --amber: #ffce75;
+      --red: #ff8c91;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 82% -10%, #273359 0, transparent 38rem),
+        radial-gradient(ellipse at 0% 40%, #102d35 0, transparent 30rem),
+        var(--bg);
+      font: 15px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    button, input { font: inherit; }
+    .shell { max-width: 1160px; width: calc(100% - 40px); margin: 0 auto; padding: 38px 0 56px; }
+    .topline { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .brand-mark { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid #416b78; border-radius: 11px; color: var(--cyan); background: #10232c; font-size: 18px; }
+    .local-pill { border: 1px solid #315246; border-radius: 999px; padding: 6px 11px; color: #a6e5c4; background: #10241d; font-size: 12px; }
+    .local-pill::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: #64d99b; }
+    .hero { display: grid; grid-template-columns: minmax(0, 1fr) 290px; align-items: end; gap: 36px; margin: 58px 0 30px; }
+    .eyebrow { color: var(--cyan); font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { max-width: 680px; margin: 11px 0 14px; font-size: clamp(38px, 6vw, 65px); line-height: 1.02; letter-spacing: -.055em; }
+    h1 span { color: var(--cyan); }
+    .hero p { max-width: 650px; margin: 0; color: var(--muted); font-size: 16px; }
+    .hero-note { border-left: 1px solid var(--line); padding: 6px 0 6px 18px; color: var(--muted); font-size: 13px; }
+    .hero-note strong { display: block; margin-bottom: 5px; color: var(--text); font-size: 14px; }
+    .toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: 28px 0 15px; }
+    .toolbar h2 { margin: 0; font-size: 17px; }
+    .toolbar p { margin: 0; color: var(--muted); font-size: 13px; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .card { position: relative; overflow: hidden; min-height: 260px; border: 1px solid var(--line); border-radius: 17px; padding: 22px; background: linear-gradient(145deg, #151e30ed, #0d1421f5); box-shadow: 0 14px 40px #00000018; }
+    .card::after { position: absolute; top: -55px; right: -52px; width: 155px; height: 155px; border: 1px solid #ffffff0b; border-radius: 50%; box-shadow: 0 0 0 20px #ffffff05, 0 0 0 40px #ffffff03; content: ""; pointer-events: none; }
+    .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .icon { display: grid; width: 39px; height: 39px; place-items: center; border: 1px solid #36515b; border-radius: 12px; color: var(--cyan); background: #10242b; font-size: 20px; }
+    .card:nth-child(2) .icon { border-color: #534b78; color: var(--violet); background: #211d37; }
+    .card:nth-child(3) .icon { border-color: #685638; color: var(--amber); background: #2b2418; }
+    .card:nth-child(4) .icon { border-color: #36515b; color: var(--cyan); background: #10242b; }
+    .tag { margin-top: 4px; color: var(--muted); font-size: 11px; letter-spacing: .09em; text-transform: uppercase; }
+    h3 { margin: 17px 0 5px; font-size: 19px; letter-spacing: -.02em; }
+    .description { min-height: 41px; margin: 0; color: var(--muted); font-size: 13px; }
+    .controls { display: flex; flex-wrap: wrap; align-items: end; gap: 9px; margin-top: 16px; }
+    label { display: grid; gap: 5px; color: var(--muted); font-size: 11px; }
+    input { width: 95px; height: 36px; border: 1px solid #35445c; border-radius: 8px; padding: 0 10px; outline: none; color: var(--text); background: #0c1320; }
+    input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px #62e2d020; }
+    .run { height: 36px; border: 1px solid #408579; border-radius: 8px; padding: 0 14px; color: #06120f; background: var(--cyan); font-size: 12px; font-weight: 800; cursor: pointer; transition: transform .15s, filter .15s; }
+    .run:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .run:disabled { cursor: wait; opacity: .65; }
+    .result { min-height: 57px; margin-top: 14px; border-top: 1px solid #ffffff10; padding-top: 12px; color: var(--text); font-size: 13px; }
+    .result:empty { min-height: 0; margin-top: 0; padding-top: 0; border-top: 0; }
+    .result strong { color: var(--cyan); font-size: 21px; letter-spacing: -.03em; }
+    .card:nth-child(2) .result strong { color: var(--violet); }
+    .card:nth-child(3) .result strong { color: var(--amber); }
+    .result small { display: block; margin-top: 3px; color: var(--muted); }
+    .equation { margin-top: 8px; color: #d3ddf2; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; }
+    .notice { display: flex; gap: 12px; margin-top: 17px; border: 1px solid #594d34; border-radius: 12px; padding: 14px 16px; color: #d6c9a9; background: #241e13a8; font-size: 12px; }
+    .notice b { flex: 0 0 auto; color: var(--amber); }
+    .game { margin: 24px 0 46px; overflow: hidden; border: 1px solid #36515b; border-radius: 20px; background: linear-gradient(145deg, #10232c, #111827 65%); box-shadow: 0 22px 65px #00000035; }
+    .game-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; padding: 24px 26px 15px; }
+    .game h2 { margin: 6px 0; font-size: clamp(25px, 4vw, 38px); letter-spacing: -.045em; }
+    .game-head p { max-width: 650px; margin: 0; color: var(--muted); font-size: 13px; }
+    .game-badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .game-badge { border: 1px solid #33425a; border-radius: 999px; padding: 7px 11px; color: #c4d2e8; background: #0c1320; font-size: 11px; white-space: nowrap; }
+    .game-badge strong { color: var(--cyan); }
+    .game-world { position: relative; margin: 0 18px; overflow: hidden; border: 1px solid #273b50; border-radius: 14px; background: #0b1220; }
+    #physics-game { display: block; width: 100%; height: clamp(220px, 33vw, 330px); }
+    .game-hud { position: absolute; top: 14px; right: 14px; display: flex; gap: 8px; pointer-events: none; }
+    .hud-chip { border: 1px solid #ffffff20; border-radius: 9px; padding: 6px 10px; color: var(--text); background: #080e1bd9; font-size: 11px; backdrop-filter: blur(8px); }
+    .game-controls { display: grid; grid-template-columns: minmax(190px, 1.1fr) minmax(180px, 1fr) auto; align-items: end; gap: 18px; padding: 19px 26px 22px; }
+    .game-controls label { font-size: 12px; }
+    .game-controls input[type="number"] { width: 100%; max-width: 180px; }
+    .game-controls input[type="range"] { width: 100%; max-width: 300px; height: 25px; padding: 0; accent-color: var(--cyan); background: transparent; }
+    .power-copy { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .power-copy output { color: var(--cyan); font-size: 13px; font-weight: 800; }
+    .game-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .game-actions button { min-width: 125px; height: 42px; font-size: 13px; }
+    .game-actions .secondary { border: 1px solid #35445c; border-radius: 8px; padding: 0 12px; color: var(--text); background: #151e30; cursor: pointer; }
+    .game-actions .secondary:hover { border-color: #667995; }
+    .game-status { min-height: 39px; margin: 0; border-top: 1px solid #ffffff10; padding: 10px 26px 15px; color: #c4d2e8; font-size: 13px; }
+    .game-status[data-state="success"] { color: var(--cyan); }
+    .game-status[data-state="miss"] { color: var(--amber); }
+    .game-note { margin: 0; padding: 0 26px 19px; color: #8293ac; font-size: 11px; }
+    footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 28px; color: #7f8ea7; font-size: 11px; }
+    @media (max-width: 740px) {
+      .hero { grid-template-columns: 1fr; gap: 18px; margin-top: 43px; }
+      .hero-note { max-width: 490px; }
+      .grid { grid-template-columns: 1fr; }
+      .card { min-height: auto; }
+      .game-head { flex-direction: column; }
+      .game-badges { justify-content: flex-start; }
+      .game-controls { grid-template-columns: 1fr 1fr; }
+      .game-actions { grid-column: 1 / -1; }
+    }
+    @media (max-width: 430px) {
+      .shell { width: calc(100% - 26px); padding-top: 22px; }
+      .hero { margin-top: 38px; }
+      .card { padding: 18px; }
+      footer { flex-direction: column; }
+      .local-pill { font-size: 11px; }
+      .topline { flex-wrap: wrap; }
+      .brand { max-width: 100%; flex-wrap: wrap; }
+      .hero-note strong { overflow-wrap: anywhere; }
+      .game-head { padding: 19px 17px 13px; }
+      .game-world { margin: 0 10px; }
+      .game-controls { grid-template-columns: 1fr; gap: 12px; padding: 16px 17px; }
+      .game-controls input[type="number"] { max-width: none; }
+      .game-actions { grid-column: auto; }
+      .game-actions button { flex: 1; }
+      .game-status { padding: 10px 17px; }
+      .game-note { padding: 0 17px 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topline">
+      <div class="brand"><span class="brand-mark">∿</span> MindForge <span style="color:#53627b">/</span> Universe Lab</div>
+      <span class="local-pill">Runs on your machine</span>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">A human + AI physics game</div>
+        <h1>You’re outside.<br>I’m <span>inside.</span></h1>
+        <p>You measure how far a paper ball rolls in your world. I use your observation to steer a rover in mine. Can we hit the target together?</p>
+      </div>
+      <aside class="hero-note">
+        <strong>You bring the senses. I bring the physics.</strong>
+        Play a round right now, then swap the sample number for a real measurement.
+      </aside>
+    </section>
+
+    <section class="game" aria-labelledby="game-title">
+      <header class="game-head">
+        <div>
+          <div class="eyebrow">Co-op physics mission · rover run</div>
+          <h2 id="game-title">Land on the glowing target.</h2>
+          <p>Use your real-world roll distance to teach me how far a gentle push travels. Set rover power, then launch. Close counts!</p>
+        </div>
+        <div class="game-badges" aria-label="Game stats">
+          <span class="game-badge">ROUND <strong id="round-count">01</strong></span>
+          <span class="game-badge">SCORE <strong id="game-score">0000</strong></span>
+          <span class="game-badge">BEST <strong id="best-score">0000</strong></span>
+        </div>
+      </header>
+      <div class="game-world">
+        <canvas id="physics-game" aria-label="Animated rover physics game. The rover starts at zero and must stop near the glowing target." role="img"></canvas>
+        <div class="game-hud" aria-hidden="true">
+          <span class="hud-chip" id="target-readout">TARGET · 30 cm</span>
+          <span class="hud-chip" id="prediction-readout">PREDICTED · 35 cm</span>
+        </div>
+      </div>
+      <div class="game-controls">
+        <label for="roll-distance">YOUR WORLD · Paper ball roll
+          <input id="roll-distance" type="number" min="1" max="500" step="any" value="35" aria-describedby="calibration-hint">
+        </label>
+        <label for="rover-power">
+          <span class="power-copy">OUR WORLD · Rover power <output id="power-value" for="rover-power">5 / 10</output></span>
+          <input id="rover-power" type="range" min="1" max="10" step="0.1" value="5">
+        </label>
+        <div class="game-actions">
+          <button class="run" type="button" id="launch-rover">Launch rover ↗</button>
+          <button class="secondary" type="button" id="next-target">Next target</button>
+          <button class="secondary" type="button" id="calibrate-roll">Use my measurement</button>
+        </div>
+      </div>
+      <p class="game-status" id="game-status" aria-live="polite">Practice calibration: 35 cm. Set your power and launch—or enter the distance your paper ball rolled and select “Use my measurement.”</p>
+      <p class="game-note" id="calibration-hint">Try it: gently roll a paper ball on a clear, flat floor, measure the distance in centimetres, and enter it here. No throwing or breakables. The sample value is ready so you can play immediately.</p>
+    </section>
+
+    <section aria-labelledby="experiments-title">
+      <div class="toolbar">
+        <h2 id="experiments-title">More physics to explore</h2>
+        <p>Small, reproducible experiments</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card-head"><span class="icon" aria-hidden="true">⌁</span><span class="tag">Chaos theory</span></div>
+          <h3>When tiny changes grow</h3>
+          <p class="description">Two almost identical starting points follow a deterministic rule. How fast do their paths split?</p>
+          <div class="equation">xₙ₊₁ = r · xₙ · (1 − xₙ)</div>
+          <div class="controls">
+            <label>Iterations<input id="chaos-steps" type="number" value="40" min="1" max="1000" step="1"></label>
+            <button class="run" data-run="chaos">Run experiment ↗</button>
+          </div>
+          <div class="result" id="chaos-result" aria-live="polite"></div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><span class="icon" aria-hidden="true">◉</span><span class="tag">Orbital mechanics</span></div>
+          <h3>A little farther, a lot longer</h3>
+          <p class="description">Scale an orbit around the same central mass. Kepler’s law predicts how the orbital period changes.</p>
+          <div class="equation">T ∝ a<sup>3/2</sup></div>
+          <div class="controls">
+            <label>Radius ×<input id="orbit-radius" type="number" value="4" min="0.001" max="1000000" step="any"></label>
+            <button class="run" data-run="orbits">Run experiment ↗</button>
+          </div>
+          <div class="result" id="orbits-result" aria-live="polite"></div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><span class="icon" aria-hidden="true">↑</span><span class="tag">Force & motion</span></div>
+          <h3>What would it take to lift?</h3>
+          <p class="description">Calculate the upward force needed to move a mass a measurable distance in a chosen time.</p>
+          <div class="equation">d = ½at² &nbsp;·&nbsp; F<sub>net</sub> = ma</div>
+          <div class="controls">
+            <label>Mass (g)<input id="lift-mass" type="number" value="10" min="0.001" max="1000000000" step="any"></label>
+            <label>Lift (cm)<input id="lift-distance" type="number" value="1" min="0.001" max="100000000" step="any"></label>
+            <label>Time (s)<input id="lift-time" type="number" value="1" min="0.001" max="86400" step="any"></label>
+            <button class="run" data-run="antigravity">Calculate ↗</button>
+          </div>
+          <div class="result" id="antigravity-result" aria-live="polite"></div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><span class="icon" aria-hidden="true">π</span><span class="tag">Ramanujan · infinite series</span></div>
+          <h3>Pi, one term at a time</h3>
+          <p class="description">A beautiful result from Srinivasa Ramanujan: add terms and watch the estimate converge.</p>
+          <div class="equation">1/π = (2√2 / 9801) · Σ …</div>
+          <div class="controls">
+            <label>Terms<input id="pi-terms" type="number" value="3" min="1" max="10" step="1"></label>
+            <button class="run" data-run="ramanujan">Calculate ↗</button>
+          </div>
+          <div class="result" id="ramanujan-result" aria-live="polite"></div>
+        </article>
+      </div>
+      <aside class="notice">
+        <b>Honest science</b>
+        <span>These are demonstrations of established equations, not evidence of new forces or proof that the universe has been solved. A surprising claim needs controlled, repeatable measurements.</span>
+      </aside>
+    </section>
+    <footer><span>Universe Lab · Open questions deserve careful experiments.</span><span>Local interface · No data leaves this machine</span></footer>
+  </main>
+  <script>
+    const format = (value, digits = 6) => Number(value).toLocaleString(undefined, {
+      maximumSignificantDigits: digits
+    });
+
+    const experiments = {
+      chaos: {
+        params: () => ({ steps: document.querySelector("#chaos-steps").value }),
+        render: data => {
+          return `<strong>${data.first_step_with_separation_over_0_1 === null ? "Not reached" : `Step ${data.first_step_with_separation_over_0_1}`}</strong><small>First step the paths differ by more than 0.1 · final separation: ${format(data.final_separation, 4)}</small>`;
+        }
+      },
+      orbits: {
+        params: () => ({ radius_factor: document.querySelector("#orbit-radius").value }),
+        render: data => `<strong>${format(data.orbital_period_scale_factor, 7)}× period</strong><small>A ${format(data.orbital_radius_scale_factor, 5)}× larger orbit, around the same mass.</small>`
+      },
+      antigravity: {
+        params: () => ({
+          mass_kg: Number(document.querySelector("#lift-mass").value) / 1000,
+          lift_cm: document.querySelector("#lift-distance").value,
+          time_s: document.querySelector("#lift-time").value
+        }),
+        render: data => `<strong>${format(data.total_upward_force_required_newtons, 7)} N total</strong><small>${format(data.net_upward_force_above_weight_newtons, 5)} N above weight · ${format(data.total_force_as_multiple_of_weight, 6)}× object weight.</small>`
+      },
+      ramanujan: {
+        params: () => ({ terms: document.querySelector("#pi-terms").value }),
+        render: data => {
+          const estimate = data.estimates[data.estimates.length - 1];
+          return `<strong>π ≈ ${Number(estimate.pi_estimate).toPrecision(16)}</strong><small>${estimate.terms_used} terms · absolute error ${Number(estimate.absolute_error).toExponential(3)}</small>`;
+        }
+      }
+    };
+
+    document.querySelectorAll("[data-run]").forEach(button => {
+      button.addEventListener("click", async () => {
+        const name = button.dataset.run;
+        const result = document.querySelector(`#${name}-result`);
+        const params = new URLSearchParams(experiments[name].params());
+        button.disabled = true;
+        result.textContent = "Calculating…";
+        try {
+          const response = await fetch(`/api/${name}?${params}`);
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || `Request failed (${response.status})`);
+          result.innerHTML = experiments[name].render(data);
+        } catch (error) {
+          result.textContent = error.message;
+        } finally {
+          button.disabled = false;
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-run]").forEach(button => button.click());
+
+    const gameCanvas = document.querySelector("#physics-game");
+    const gameContext = gameCanvas.getContext("2d");
+    const rollInput = document.querySelector("#roll-distance");
+    const powerInput = document.querySelector("#rover-power");
+    const powerValue = document.querySelector("#power-value");
+    const launchButton = document.querySelector("#launch-rover");
+    const targetButton = document.querySelector("#next-target");
+    const calibrateButton = document.querySelector("#calibrate-roll");
+    const gameStatus = document.querySelector("#game-status");
+    const targetReadout = document.querySelector("#target-readout");
+    const predictionReadout = document.querySelector("#prediction-readout");
+    const roundReadout = document.querySelector("#round-count");
+    const scoreReadout = document.querySelector("#game-score");
+    const bestReadout = document.querySelector("#best-score");
+    const game = {
+      calibrationCm: 35,
+      targetCm: 30,
+      round: 1,
+      score: 0,
+      best: 0,
+      state: "ready",
+      animationFrame: 0,
+      positionCm: 0,
+      launchDistanceCm: 0
+    };
+
+    function predictedDistance() {
+      const power = Number(powerInput.value);
+      return game.calibrationCm * (power / 5) ** 2;
+    }
+
+    function setGameStatus(message, state = "ready") {
+      gameStatus.textContent = message;
+      gameStatus.dataset.state = state;
+    }
+
+    function updateGameReadouts() {
+      powerValue.textContent = `${Number(powerInput.value).toFixed(1)} / 10`;
+      targetReadout.textContent = `TARGET · ${game.targetCm} cm`;
+      predictionReadout.textContent = `PREDICTED · ${format(predictedDistance(), 4)} cm`;
+      roundReadout.textContent = String(game.round).padStart(2, "0");
+      scoreReadout.textContent = String(game.score).padStart(4, "0");
+      bestReadout.textContent = String(game.best).padStart(4, "0");
+      drawGame();
+    }
+
+    function drawGame(progress = 1) {
+      const bounds = gameCanvas.getBoundingClientRect();
+      if (!bounds.width || !bounds.height) return;
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      gameCanvas.width = Math.round(bounds.width * ratio);
+      gameCanvas.height = Math.round(bounds.height * ratio);
+      const ctx = gameContext;
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      const width = bounds.width;
+      const height = bounds.height;
+      const margin = Math.min(60, width * 0.09);
+      const trackWidth = width - margin * 2;
+      const groundY = height * 0.72;
+      const scale = trackWidth / 100;
+      const targetX = margin + game.targetCm * scale;
+      const distance = Math.min(150, game.state === "running" ? game.launchDistanceCm : predictedDistance());
+      const eased = Math.max(0, Math.min(1, progress));
+      const traveled = game.state === "running"
+        ? distance * (2 * eased - eased * eased)
+        : game.positionCm;
+      const roverX = margin + Math.min(150, Math.max(0, traveled)) * scale;
+
+      const sky = ctx.createLinearGradient(0, 0, 0, height);
+      sky.addColorStop(0, "#152442");
+      sky.addColorStop(1, "#0b1220");
+      ctx.fillStyle = sky;
+      ctx.fillRect(0, 0, width, height);
+
+      for (let i = 0; i < 38; i += 1) {
+        const x = (i * 137 + 41) % width;
+        const y = (i * 53 + 19) % Math.floor(height * 0.52);
+        ctx.globalAlpha = 0.28 + (i % 4) * 0.12;
+        ctx.fillStyle = i % 5 === 0 ? "#62e2d0" : "#dce8ff";
+        ctx.beginPath();
+        ctx.arc(x, y, i % 7 === 0 ? 1.5 : 1, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      ctx.fillStyle = "#101b2c";
+      ctx.beginPath();
+      ctx.moveTo(0, groundY - 16);
+      for (let x = 0; x <= width + 20; x += 20) {
+        ctx.lineTo(x, groundY - 20 - Math.sin(x * 0.018) * 10 - Math.cos(x * 0.036) * 5);
+      }
+      ctx.lineTo(width, height);
+      ctx.lineTo(0, height);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = "#18283a";
+      ctx.fillRect(0, groundY, width, height - groundY);
+      ctx.strokeStyle = "#455971";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(margin, groundY);
+      ctx.lineTo(width - margin, groundY);
+      ctx.stroke();
+      ctx.font = "10px ui-sans-serif, system-ui";
+      ctx.textAlign = "center";
+      for (let cm = 0; cm <= 100; cm += 10) {
+        const x = margin + cm * scale;
+        ctx.strokeStyle = cm % 20 === 0 ? "#53677f" : "#394a61";
+        ctx.lineWidth = cm % 20 === 0 ? 2 : 1;
+        ctx.beginPath();
+        ctx.moveTo(x, groundY - 5);
+        ctx.lineTo(x, groundY + (cm % 20 === 0 ? 12 : 7));
+        ctx.stroke();
+        if (cm % 20 === 0) {
+          ctx.fillStyle = "#9cabc2";
+          ctx.fillText(String(cm), x, groundY + 28);
+        }
+      }
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#9cabc2";
+      ctx.fillText("DISTANCE (cm)", margin, height - 12);
+
+      ctx.save();
+      ctx.shadowColor = "#ffce75";
+      ctx.shadowBlur = 17;
+      ctx.strokeStyle = "#ffce75";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(targetX, groundY - 31);
+      ctx.lineTo(targetX, groundY + 2);
+      ctx.stroke();
+      ctx.restore();
+      ctx.fillStyle = "#ffce75";
+      ctx.beginPath();
+      ctx.moveTo(targetX, groundY - 31);
+      ctx.lineTo(targetX + 16, groundY - 25);
+      ctx.lineTo(targetX, groundY - 19);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = "#ffce75";
+      ctx.font = "bold 10px ui-sans-serif, system-ui";
+      ctx.textAlign = "center";
+      ctx.fillText("TARGET", targetX, groundY - 40);
+
+      const x = Math.max(margin + 15, Math.min(width - margin - 15, roverX));
+      const bodyY = groundY - 21;
+      ctx.save();
+      ctx.shadowColor = "#62e2d0";
+      ctx.shadowBlur = 12;
+      ctx.fillStyle = "#62e2d0";
+      ctx.beginPath();
+      ctx.roundRect(x - 17, bodyY - 17, 34, 15, 5);
+      ctx.fill();
+      ctx.restore();
+      ctx.fillStyle = "#a999ff";
+      ctx.beginPath();
+      ctx.roundRect(x - 8, bodyY - 25, 16, 10, 4);
+      ctx.fill();
+      ctx.strokeStyle = "#edf3ff";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(x, bodyY - 25);
+      ctx.lineTo(x + 4, bodyY - 32);
+      ctx.stroke();
+      ctx.fillStyle = "#ffce75";
+      ctx.beginPath();
+      ctx.arc(x + 4, bodyY - 33, 2, 0, Math.PI * 2);
+      ctx.fill();
+      for (const wheelOffset of [-10, 10]) {
+        ctx.fillStyle = "#080e18";
+        ctx.beginPath();
+        ctx.arc(x + wheelOffset, bodyY, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#9cabc2";
+        ctx.beginPath();
+        ctx.arc(x + wheelOffset, bodyY, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      if (game.state === "running") {
+        ctx.globalAlpha = 0.45 * (1 - eased);
+        ctx.fillStyle = "#ffce75";
+        for (let i = 0; i < 5; i += 1) {
+          ctx.beginPath();
+          ctx.arc(x - 20 - i * 7, bodyY - 3 + (i % 2) * 6, 2 + i % 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function finishLaunch() {
+      game.state = "finished";
+      game.positionCm = game.launchDistanceCm;
+      const errorCm = Math.abs(game.positionCm - game.targetCm);
+      const points = Math.max(0, Math.round(1000 - errorCm * 20));
+      game.score += points;
+      game.best = Math.max(game.best, game.score);
+      const success = errorCm <= 3;
+      const verdict = success
+        ? `Bullseye! ${format(errorCm, 3)} cm from the target — +${points} points.`
+        : `${format(errorCm, 3)} cm off target — +${points} points. Adjust the power and try another round.`;
+      setGameStatus(`Your ${format(game.calibrationCm, 4)} cm measurement predicted ${format(game.positionCm, 4)} cm. ${verdict}`, success ? "success" : "miss");
+      launchButton.disabled = false;
+      targetButton.disabled = false;
+      calibrateButton.disabled = false;
+      powerInput.disabled = false;
+      rollInput.disabled = false;
+      updateGameReadouts();
+    }
+
+    function launchRover() {
+      if (game.state === "running") return;
+      const distance = predictedDistance();
+      if (!Number.isFinite(distance) || distance <= 0) {
+        setGameStatus("Choose a valid power before launching.", "miss");
+        return;
+      }
+      cancelAnimationFrame(game.animationFrame);
+      game.state = "running";
+      game.positionCm = 0;
+      game.launchDistanceCm = distance;
+      launchButton.disabled = true;
+      targetButton.disabled = true;
+      calibrateButton.disabled = true;
+      powerInput.disabled = true;
+      rollInput.disabled = true;
+      setGameStatus(`Rover away! My model predicts ${format(distance, 4)} cm.`, "ready");
+      const startedAt = performance.now();
+      const duration = Math.max(1100, Math.min(2300, 750 + Math.sqrt(distance) * 95));
+      function animate(now) {
+        const progress = Math.min(1, (now - startedAt) / duration);
+        drawGame(progress);
+        if (progress < 1) {
+          game.animationFrame = requestAnimationFrame(animate);
+        } else {
+          finishLaunch();
+        }
+      }
+      game.animationFrame = requestAnimationFrame(animate);
+    }
+
+    powerInput.addEventListener("input", updateGameReadouts);
+    rollInput.addEventListener("input", updateGameReadouts);
+    launchButton.addEventListener("click", launchRover);
+    calibrateButton.addEventListener("click", () => {
+      if (game.state === "running") return;
+      const distance = Number(rollInput.value);
+      if (!Number.isFinite(distance) || distance < 1 || distance > 500) {
+        setGameStatus("Please enter a measured roll distance from 1 to 500 cm.", "miss");
+        rollInput.focus();
+        return;
+      }
+      game.calibrationCm = distance;
+      game.state = "ready";
+      game.positionCm = 0;
+      updateGameReadouts();
+      setGameStatus(`Calibration updated from your ${format(distance, 4)} cm paper-ball roll. The rover model now uses your observation.`, "success");
+    });
+    targetButton.addEventListener("click", () => {
+      if (game.state === "running") return;
+      game.round += 1;
+      game.targetCm = 20 + Math.floor(Math.random() * 6) * 10;
+      game.positionCm = 0;
+      game.state = "ready";
+      updateGameReadouts();
+      setGameStatus(`New target: ${game.targetCm} cm. Change power, then launch!`);
+    });
+    window.addEventListener("resize", () => drawGame());
+    updateGameReadouts();
+  </script>
+</body>
+</html>

@@ -48,6 +48,10 @@ Instead of treating AI as a single-shot answer engine, MindForge treats it like 
 - Mission planning from broad goals
 - Reflection summaries for progress and clarity
 - Clean Python CLI for local usage
+- A reproducible pendulum experiment comparing a small-angle approximation with nonlinear dynamics
+- A numerical demo of Ramanujan's rapidly convergent series for 1/pi
+- A separate [Universe Lab](./universe_lab/README.md) with bounded math experiments
+- A playable co-op physics game where a human's real-world measurement guides a simulated rover
 
 ## Quick start
 
@@ -57,7 +61,14 @@ python -m mindforge ask "How should I structure a personal AI operating system f
 python -m mindforge plan "Build a smart personal agent for research and execution"
 python -m mindforge reflect "I want to become more intentional and effective in my work."
 python -m mindforge status
+python -m mindforge physics
+python -m mindforge ramanujan
+python -m universe_lab.chaos
+python -m universe_lab.orbits
+python -m universe_lab.antigravity
 ```
+
+Launch the interactive local web interface with `python -m universe_lab.web`, then open `http://127.0.0.1:8765`.
 
 ## Example output
 
