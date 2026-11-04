@@ -69,18 +69,17 @@ class MemoryStore:
             text = (record.get("text") or "").lower()
             title = (record.get("title") or "").lower()
             tags = " ".join(record.get("tags") or []).lower()
-            score = 0.0
+            match_score = 0.0
 
             if q in text:
-                score += 4.0
+                match_score += 4.0
             if q in title:
-                score += 2.0
-            score += sum(0.5 for token in q.split() if token in text)
-            score += sum(0.7 for token in q.split() if token in tags)
-            score += float(record.get("importance") or 1.0)
+                match_score += 2.0
+            match_score += sum(0.5 for token in q.split() if token in text)
+            match_score += sum(0.7 for token in q.split() if token in tags)
 
-            if score > 0:
-                ranked.append((score, record))
+            if match_score > 0:
+                ranked.append((match_score + float(record.get("importance") or 1.0), record))
 
         ranked.sort(key=lambda item: item[0], reverse=True)
         return [record for _, record in ranked[:limit]]
