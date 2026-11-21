@@ -40,6 +40,12 @@ AI is a research amplifier, not an oracle. A scientific solution is not establis
 
 **Measurable outcome:** Lower rates of fabricated citations and invalid logical steps across independently evaluated tasks.
 
+### 1.5 Mathematics for explainable and certified AI
+
+**Timeframe:** Near-term priority.  **Goal:** Develop rigorous methods to bound model behavior, certify formally specified properties, detect distribution shift, and reason about the safety of learned systems.
+
+**Measurable outcome:** Certified performance on held-out distributions, reproducible counterexamples, and proofs or conservative bounds for meaningful operational properties.
+
 ## 2. Fundamental physics
 
 ### 2.1 Quantum gravity
@@ -96,6 +102,18 @@ AI is a research amplifier, not an oracle. A scientific solution is not establis
 
 **Measurable outcome:** End-to-end demonstrations with independent verification, resource estimates, and no overstated “quantum supremacy” claims.
 
+### 2.9 Fundamental constants and precision metrology
+
+**Timeframe:** Near-term priority.  **Goal:** Improve measurements and tests of whether physical constants and fundamental symmetries vary across space and time.
+
+**Measurable outcome:** Independent precision measurements with falsifiable constraints on possible variations and controlled systematic uncertainties.
+
+### 2.10 High-pressure and extreme-state matter
+
+**Timeframe:** Longer horizon.  **Goal:** Understand matter under extreme temperature, density, pressure, magnetic fields, and rapid evolution.
+
+**Measurable outcome:** Predictive equations of state independently reproduced by experiments, observations, and simulations.
+
 ## 3. Chemistry
 
 ### 3.1 Predictive molecular simulation
@@ -145,6 +163,12 @@ AI is a research amplifier, not an oracle. A scientific solution is not establis
 **Timeframe:** Longer horizon.  **Goal:** Identify plausible pathways from simple chemistry to replicating, compartmentalized, evolving systems.
 
 **Measurable outcome:** Reproducible chemical systems with heredity, metabolism-like behavior, and environmental plausibility.
+
+### 3.9 Safe-by-design chemistry
+
+**Timeframe:** Near-term priority.  **Goal:** Predict toxicity, persistence, ecotoxicity, flammability, and endocrine disruption early enough to replace hazardous candidates before industrial scale-up.
+
+**Measurable outcome:** Prospective predictions validated by new data and lower lifecycle harm across diverse exposure scenarios.
 
 ## 4. Biology
 
@@ -218,6 +242,18 @@ AI is a research amplifier, not an oracle. A scientific solution is not establis
 
 **Measurable outcome:** Contained, documented systems with fail-safe controls, environmental risk assessment, and independent verification.
 
+### 4.12 Organogenesis and whole-organ development
+
+**Timeframe:** Longer horizon.  **Goal:** Understand how cells coordinate to build, maintain, and restore complete tissues and organs.
+
+**Measurable outcome:** Reproducible organoids or engineered tissues with functional vascularization, innervation, and clinically meaningful repair.
+
+### 4.13 Human and environmental virology
+
+**Timeframe:** Near-term priority.  **Goal:** Anticipate viral evolution, spillover, immune escape, and treatment resistance while preserving beneficial ecological roles.
+
+**Measurable outcome:** Prospective risk rankings, validated surveillance, and interventions that reduce transmission without unsupported broad restrictions.
+
 ## 5. Medicine and public health
 
 ### 5.1 Causal clinical inference
@@ -239,7 +275,8 @@ AI is a research amplifier, not an oracle. A scientific solution is not establis
 **Measurable outcome:** Auditable decisions, incident reporting, rollback plans, and independent post-market evaluation.
 
 ### 5.4 Universal, low-cost diagnostics
-n**Timeframe:** Near-term priority.  **Goal:** Build accurate, portable, inexpensive tests for infectious, metabolic, oncologic, and neurological diseases.
+
+**Timeframe:** Near-term priority.  **Goal:** Build accurate, portable, inexpensive tests for infectious, metabolic, oncologic, and neurological diseases.
 
 **Measurable outcome:** Sensitivity, specificity, cost, and workflow performance validated in representative real-world settings.
 
@@ -248,6 +285,18 @@ n**Timeframe:** Near-term priority.  **Goal:** Build accurate, portable, inexpen
 **Timeframe:** Near-term priority.  **Goal:** Develop objective, fair measures and decision support without treating every emotion or preference as pathology.
 
 **Measurable outcome:** Improved treatment matching and safety, with no harmful surveillance or coercion.
+
+### 5.6 Reproductive health and maternal outcomes
+
+**Timeframe:** Near-term priority.  **Goal:** Predict and reduce pregnancy complications, maternal mortality, infertility, preterm birth, and unequal access to care.
+
+**Measurable outcome:** Validated risk tools and equitable improvements in prospective maternal and neonatal outcomes.
+
+### 5.7 Rare-disease diagnosis and treatment
+
+**Timeframe:** Near-term priority.  **Goal:** Accelerate interpretation of genomes, phenotypes, and treatment options for diseases affecting small populations.
+
+**Measurable outcome:** Shorter diagnostic timelines and independently verified therapeutic or supportive outcomes.
 
 ## 6. Neuroscience, intelligence, and cognition
 
@@ -258,7 +307,8 @@ n**Timeframe:** Near-term priority.  **Goal:** Build accurate, portable, inexpen
 **Measurable outcome:** Clinically meaningful function, low adverse-event rates, and patient control over data and device operation.
 
 ### 6.2 Learning-efficiency theory
-n**Timeframe:** Near-term priority.  **Goal:** Understand why and how artificial and biological systems learn from few examples, transfer knowledge, and resist forgetting.
+
+**Timeframe:** Near-term priority.  **Goal:** Understand why and how artificial and biological systems learn from few examples, transfer knowledge, and resist forgetting.
 
 **Measurable outcome:** Models that improve sample efficiency and retain previously learned capabilities under distribution shift.
 
@@ -273,6 +323,18 @@ n**Timeframe:** Near-term priority.  **Goal:** Understand why and how artificial
 **Timeframe:** Near-term priority.  **Goal:** Build predictive internal models that support planning and cause-and-effect reasoning without merely memorizing surface patterns.
 
 **Measurable outcome:** Strong performance in unseen environments with formal or empirical safety guarantees.
+
+### 6.5 Sleep, memory, and healthy human–AI collaboration
+
+**Timeframe:** Near-term priority.  **Goal:** Understand sleep-dependent repair and memory consolidation, and design AI collaboration that supports rather than displaces human judgment.
+
+**Measurable outcome:** Improved recall and function in long-term studies and demonstrated human retention of decision-making skill.
+
+### 6.6 Generalizable intelligence and transfer
+
+**Timeframe:** Longer horizon.  **Goal:** Build systems that transfer robustly across tasks, bodies, cultures, goals, and previously unseen environments.
+
+**Measurable outcome:** Independent evaluations showing durable competence beyond narrow benchmarks, with explicit uncertainty and safe degradation.
 
 ## 7. Earth systems and ecology
 
@@ -306,6 +368,18 @@ n**Timeframe:** Near-term priority.  **Goal:** Understand why and how artificial
 
 **Measurable outcome:** Robust forecasts across geopolitical and environmental disruptions, with transparent assumptions.
 
+### 7.6 Freshwater security
+
+**Timeframe:** Near-term priority.  **Goal:** Preserve aquifer, river, lake, and watershed function while meeting drinking, agricultural, industrial, and ecological needs.
+
+**Measurable outcome:** Verified availability, quality, and ecosystem-health improvements across drought and flood scenarios.
+
+### 7.7 Arctic and cryosphere systems
+
+**Timeframe:** Near-term priority.  **Goal:** Predict ice-sheet instability, permafrost change, sea ice, methane release, and impacts on coastlines and ecosystems.
+
+**Measurable outcome:** Improved regional forecasts that reproduce observations after initially withheld data and quantify tipping risks.
+
 ## 8. Food, agriculture, and nutrition
 
 ### 8.1 Climate-resilient crops
@@ -325,6 +399,18 @@ n**Timeframe:** Near-term priority.  **Goal:** Understand why and how artificial
 **Timeframe:** Near-term priority.  **Goal:** Restore soil carbon, fertility, water retention, microbial communities, and biodiversity.
 
 **Measurable outcome:** Durable, monitored improvements rather than short-lived treatment effects.
+
+### 8.4 Safe and equitable post-harvest systems
+
+**Timeframe:** Near-term priority.  **Goal:** Reduce spoilage, contamination, food loss, and unequal access through storage, logistics, and low-cost detection.
+
+**Measurable outcome:** Measured reductions in losses and illness across representative supply chains with producer and consumer benefit.
+
+### 8.5 Personalized nutrition without overclaiming
+
+**Timeframe:** Near-term priority.  **Goal:** Determine which dietary recommendations vary by individual biology and which common interventions benefit populations broadly.
+
+**Measurable outcome:** Causal, repeatable improvements in health outcomes rather than correlations or short-term surrogate markers alone.
 
 ## 9. Energy and infrastructure
 
@@ -352,6 +438,12 @@ n**Timeframe:** Near-term priority.  **Goal:** Understand why and how artificial
 
 **Measurable outcome:** Reduced incident rates in audited real deployments with human override and fail-safe modes.
 
+### 9.5 Geothermal and heat-deep-energy systems
+
+**Timeframe:** Near-term priority.  **Goal:** Expand safe geothermal and subsurface heat systems while controlling seismicity, groundwater risk, and operating cost.
+
+**Measurable outcome:** Reliable thermal output and independently monitored environmental performance over full operating cycles.
+
 ## 10. Materials and manufacturing
 
 ### 10.1 Materials discovery at scale
@@ -371,6 +463,12 @@ n**Timeframe:** Near-term priority.  **Goal:** Understand why and how artificial
 **Timeframe:** Longer horizon.  **Goal:** Produce systems that assemble, adapt, or repair under controlled environmental instructions.
 
 **Measurable outcome:** Reliable behavior under varied conditions with safety and shutdown mechanisms.
+
+### 10.4 Durable, repairable, and recyclable products
+
+**Timeframe:** Near-term priority.  **Goal:** Design products for long service life, repair, disassembly, and material recovery without compromising safety or accessibility.
+
+**Measurable outcome:** Independently measured lifetime extension, recovery rates, and lower lifecycle resource use.
 
 ## 11. Computing and secure AI
 
@@ -410,6 +508,18 @@ n**Timeframe:** Near-term priority.  **Goal:** Understand why and how artificial
 
 **Measurable outcome:** Independent lifecycle benchmarks, including water and electricity, for training and deployment.
 
+### 11.7 Secure and trustworthy software generation
+
+**Timeframe:** Near-term priority.  **Goal:** Generate, review, test, patch, and verify software while preventing hidden vulnerabilities, unauthorized changes, and unsafe dependencies.
+
+**Measurable outcome:** Lower defect escape rates, reproducible verification, auditable provenance, and independent security evaluation.
+
+### 11.8 Privacy-preserving computation
+
+**Timeframe:** Near-term priority.  **Goal:** Use cryptography and privacy-preserving machine learning to derive value from sensitive data without exposing personal or proprietary records.
+
+**Measurable outcome:** Independently validated privacy guarantees, utility retention, and practical performance under realistic threat models.
+
 ## 12. Space science and civilization resilience
 
 ### 12.1 Planetary defense
@@ -442,6 +552,18 @@ n**Timeframe:** Near-term priority.  **Goal:** Understand why and how artificial
 
 **Measurable outcome:** Faster warnings, lower false alarm rates, equitable communication, and transparent evaluation.
 
+### 12.6 Space weather forecasting
+
+**Timeframe:** Near-term priority.  **Goal:** Predict solar storms, energetic particles, geomagnetic disturbances, and their effects on spacecraft, grids, aviation, and communications.
+
+**Measurable outcome:** Earlier actionable forecasts with measured skill, uncertainty, and reduced false or missed warnings.
+
+### 12.7 Sustainable space activity
+
+**Timeframe:** Near-term priority.  **Goal:** Reduce debris, interference, collision risk, contamination, and military or commercial escalation in orbital and deep-space environments.
+
+**Measurable outcome:** Lower tracked debris growth and collision probability, transparent operations, and governed space traffic coordination.
+
 ## 13. Social, economic, and governance challenges
 
 ### 13.1 Democratic and institutional legitimacy
@@ -473,6 +595,18 @@ n**Timeframe:** Near-term priority.  **Goal:** Understand why and how artificial
 **Timeframe:** Near-term priority.  **Goal:** Improve provenance, context, correction, and uncertainty communication for scientific claims.
 
 **Measurable outcome:** Lower spread of false claims, higher evidence transparency, and protected access for legitimate dissent.
+
+### 13.6 Human rights and responsible data governance
+
+**Timeframe:** Near-term priority.  **Goal:** Protect privacy, due process, freedom of expression, and access to essential services while enabling lawful beneficial data use.
+
+**Measurable outcome:** Independent audits, effective appeal processes, low privacy harm, and measurable access improvements without covert surveillance.
+
+### 13.7 Long-term governance and institutional continuity
+
+**Timeframe:** Longer horizon.  **Goal:** Create institutions capable of managing long-lived risks, scientific progress, and intergenerational responsibilities despite political and technological disruption.
+
+**Measurable outcome:** Transparent institutions that maintain safeguards, adapt under review, and demonstrate accountable decisions across generations.
 
 ## 14. Three-year milestone plan
 
